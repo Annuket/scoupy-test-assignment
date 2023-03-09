@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use App\Models\Coupon;
+
+// Stop if we're trying to run via a non-cli interface such as a web server.
+if (php_sapi_name() != "cli") {
+    exit("cli only");
+}
+
+if (isset($argv[1])) {
+    //if ids of coupons given   
+
+    //get array of ids
+    array_shift($argv);
+
+    if (Coupon::hide($argv)) {
+        echo "Coupons " . implode(' ', $argv) . " are hide \n";
+    } else {
+        echo "Coupons " . implode(' ', $argv) . " could not be hide \n";
+    }
+
+} else {
+    //otherwise hide all 
+
+    $coupons = Coupon::getAll();
+
+    $coupons_ids = array_map(fn ($value): int => $value["id_coupon"], $coupons);
+
+    if (Coupon::hide($coupons_ids)) {
+        echo "Coupons " . implode(' ', $coupons_ids) . " are hide \n";
+    } else {
+        echo "Coupons " . implode(' ', $coupons_ids) . " could not be hide \n";
+    }
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/coupons/list">Coupons</a> |
+        <a href="/coupons/hidden">Hidden coupons</a>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+</body>
+
+</html>
